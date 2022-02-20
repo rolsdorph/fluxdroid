@@ -1,0 +1,10 @@
+<resources>
+    <string-array name="sink_type_names">
+        <item>InfluxDB 1.x</item>
+        <item>InfluxDB 2.x</item>
+    </string-array>
+    <string-array name="sink_type_values">
+        <item>influx1</item>
+        <item>influx2</item>
+    </string-array>
+</resources>

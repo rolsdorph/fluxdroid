@@ -1,0 +1,57 @@
+<resources>
+    <string name="app_name">Fluxdroid</string>
+
+    <!-- Overview screen -->
+    <string name="configure">Configure</string>
+    <string name="events_sent">events sent</string>
+    <string name="subscribed_to">Subscribed to</string>
+    <string name="sending_events_to">Sending events to</string>
+    <string name="influxdb">InfluxDB</string>
+
+    <!-- Event Selection title-->
+    <string name="events_to_send">Events to send</string>
+    <string name="select_events">Select Events</string>
+
+    <!-- Events -->
+    <string name="system_startup">System startup</string>
+    <string name="system_startup_description">Sent when the device starts up</string>
+
+    <string name="incoming_call">Incoming call</string>
+    <string name="incoming_call_description">Sent when the device receives a call</string>
+
+    <string name="outgoing_call">Outgoing call</string>
+    <string name="outgoing_call_description">Sent when a call is made</string>
+
+    <string name="incoming_text">Incoming text</string>
+    <string name="incoming_text_description">Sent when a text is received</string>
+
+    <!-- InfluxDB configuration -->
+    <string name="configure_destination">Configure Destination</string>
+    <string name="influxdb_configuration">InfluxDB Configuration</string>
+
+    <string name="influx_host_title">Host</string>
+    <string name="influx_host_summary">Influx host, including protocol</string>
+
+    <string name="influx_port_title">Port</string>
+    <string name="influx_port_summary">Influx port</string>
+
+    <string name="influx_db_title">Database</string>
+    <string name="influx_db_summary">Influx database name</string>
+
+    <string name="influx_retention_title">Retention Policy</string>
+    <string name="influx_retention_summary">Retention policy name</string>
+
+    <string name="influx_username_title">Username</string>
+    <string name="influx_username_summary">InfluxDB username</string>
+
+    <string name="influx_password_title">Password</string>
+    <string name="influx_password_summary">InfluxDB password</string>
+
+    <string name="influx_token_title">Token</string>
+    <string name="influx_token_summary">InfluxDB API token</string>
+
+    <!-- Image accessibility -->
+    <string name="desc_stonks">Chart going up</string>
+    <string name="desc_cloud">Cloud</string>
+    <string name="desc_numbered_list">Numbered list</string>
+</resources>
