@@ -8,6 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
 import androidx.navigation.Navigation;
 
 public class OverviewFragment extends Fragment {
@@ -21,14 +22,25 @@ public class OverviewFragment extends Fragment {
 
         SinkConfigRepository sinkConfigRepository = new SinkConfigRepository(getContext());
         EventSelectionRepository eventSelectionRepository = new EventSelectionRepository(getContext());
+        EventRepository eventRepository = new EventRepository(getContext());
 
-        int numEvents = eventSelectionRepository.getEventCount();
-        TextView eventCountText = view.findViewById(R.id.eventCountText);
-        eventCountText.setText(getResources().getQuantityString(R.plurals.num_events, numEvents, numEvents));
+        // Total number of events
+        TextView eventCountNumber = view.findViewById(R.id.numEventsSentCount);
+        TextView eventCountText = view.findViewById(R.id.numEventsSentText);
+        LiveData<Integer> numSentEvents = eventRepository.getTotalSuccessCount();
+        numSentEvents.observe(getViewLifecycleOwner(), (Integer newCount) -> {
+            eventCountNumber.setText(String.valueOf(newCount));
+            eventCountText.setText(getResources().getQuantityString(R.plurals.num_events_sent, newCount));
+        });
 
+        // Selected events
+        int numSelectedEvents = eventSelectionRepository.getEventCount();
+        TextView selectedEventsCountText = view.findViewById(R.id.selectedEventsCountText);
+        selectedEventsCountText.setText(getResources().getQuantityString(R.plurals.num_events, numSelectedEvents, numSelectedEvents));
         view.findViewById(R.id.btnConfigureEvents).setOnClickListener(b -> Navigation.findNavController(view).navigate(R.id.action_overviewFragment_to_eventSelectionFragment));
         view.findViewById(R.id.btnConfigureSink).setOnClickListener(b -> Navigation.findNavController(view).navigate(R.id.action_overviewFragment_to_sinkConfigFragment));
 
+        // Sink configuration
         ImageView imageView = view.findViewById(R.id.sinkIcon);
         View sinkTextConfigured = view.findViewById(R.id.sinkTextConfigured);
         View sinkTextNotConfigured = view.findViewById(R.id.sinkTextNotConfigured);

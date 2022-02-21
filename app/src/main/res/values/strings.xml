@@ -4,7 +4,10 @@
     <!-- Overview screen -->
     <string name="configure">Configure</string>
 
-    <string name="events_sent">events sent</string>
+    <plurals name="num_events_sent">
+        <item quantity="one">event sent</item>
+        <item quantity="other">events sent</item>
+    </plurals>
 
     <string name="subscribed_to">Subscribed to</string>
     <plurals name="num_events">

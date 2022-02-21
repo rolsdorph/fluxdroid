@@ -1,6 +1,6 @@
 package io.rolsdorph.fluxdroid;
 
-enum EventType {
+public enum EventType {
     SystemStartup(R.string.evt_system_startup),
     IncomingCall(R.string.evt_incoming_call),
     OutgoingCall(R.string.evt_outgoing_call),
