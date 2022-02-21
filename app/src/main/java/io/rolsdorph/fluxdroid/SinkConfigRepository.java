@@ -41,10 +41,10 @@ public final class SinkConfigRepository {
     }
 
     private Optional<InfluxConfig> buildInfluxConfig(InfluxAuth influxAuth) {
-        String host = sharedPreferences.getString("influx_host", null);
+        String host = getNonEmptyConfig("influx_host");
         Integer port = getPort();
-        String db = sharedPreferences.getString("influx_db", null);
-        String retention = sharedPreferences.getString("influx_retention", null);
+        String db = getNonEmptyConfig("influx_db");
+        String retention = getNonEmptyConfig("influx_retention");
 
         if (host != null && port != null && db != null && retention != null) {
             Log.i(TAG, "Influx fully configured!");
@@ -59,8 +59,21 @@ public final class SinkConfigRepository {
         }
     }
 
+    private String getNonEmptyConfig(String key) {
+        String value = sharedPreferences.getString(key, null);
+        if (value == null) {
+            Log.i(TAG, "Missing config value for " + key);
+            return null;
+        } else if (value.isEmpty()) {
+            Log.i(TAG, "Empty config value for " + key);
+            return null;
+        } else {
+            return value;
+        }
+    }
+
     private Integer getPort() {
-        String portString = sharedPreferences.getString("influx_port", null);
+        String portString = getNonEmptyConfig("influx_port");
         if (portString == null) {
             return null;
         } else {

@@ -54,4 +54,5 @@
     <string name="desc_stonks">Chart going up</string>
     <string name="desc_cloud">Cloud</string>
     <string name="desc_numbered_list">Numbered list</string>
+    <string name="no_destination_configured">No destination configured</string>
 </resources>

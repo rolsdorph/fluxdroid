@@ -162,18 +162,32 @@
                 app:layout_constraintStart_toEndOf="@+id/sinkIcon"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/sending_events_to"
-                    android:textAppearance="?attr/textAppearanceBody2"
-                    android:textColor="?android:attr/textColorSecondary" />
+                <LinearLayout
+                    android:id="@+id/sinkTextConfigured"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/sending_events_to"
+                        android:textAppearance="?attr/textAppearanceBody2"
+                        android:textColor="?android:attr/textColorSecondary" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/influxdb"
+                        android:textAppearance="?attr/textAppearanceHeadline6" />
+                </LinearLayout>
 
                 <TextView
+                    android:id="@+id/sinkTextNotConfigured"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/influxdb"
-                    android:textAppearance="?attr/textAppearanceHeadline6" />
+                    android:text="@string/no_destination_configured"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    android:textColor="?android:attr/textColorSecondary" />
 
             </LinearLayout>
 
