@@ -3,8 +3,12 @@
 
     <!-- Overview screen -->
     <string name="configure">Configure</string>
+
     <string name="events_sent">events sent</string>
+
     <string name="subscribed_to">Subscribed to</string>
+
+    <string name="no_destination_configured">No destination configured</string>
     <string name="sending_events_to">Sending events to</string>
     <string name="influxdb">InfluxDB</string>
 
@@ -54,5 +58,4 @@
     <string name="desc_stonks">Chart going up</string>
     <string name="desc_cloud">Cloud</string>
     <string name="desc_numbered_list">Numbered list</string>
-    <string name="no_destination_configured">No destination configured</string>
 </resources>
