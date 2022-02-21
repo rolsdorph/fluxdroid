@@ -38,13 +38,11 @@ public class OverviewFragment extends Fragment {
         TextView selectedEventsCountText = view.findViewById(R.id.selectedEventsCountText);
         selectedEventsCountText.setText(getResources().getQuantityString(R.plurals.num_events, numSelectedEvents, numSelectedEvents));
         view.findViewById(R.id.btnConfigureEvents).setOnClickListener(b -> Navigation.findNavController(view).navigate(R.id.action_overviewFragment_to_eventSelectionFragment));
-        view.findViewById(R.id.btnConfigureSink).setOnClickListener(b -> Navigation.findNavController(view).navigate(R.id.action_overviewFragment_to_sinkConfigFragment));
 
         // Sink configuration
         ImageView imageView = view.findViewById(R.id.sinkIcon);
         View sinkTextConfigured = view.findViewById(R.id.sinkTextConfigured);
         View sinkTextNotConfigured = view.findViewById(R.id.sinkTextNotConfigured);
-
         if (sinkConfigRepository.cloudConfigured()) {
             imageView.setImageResource(R.drawable.ic_baseline_cloud_queue_32);
             sinkTextConfigured.setVisibility(View.VISIBLE);
@@ -54,5 +52,6 @@ public class OverviewFragment extends Fragment {
             sinkTextConfigured.setVisibility(View.GONE);
             sinkTextNotConfigured.setVisibility(View.VISIBLE);
         }
+        view.findViewById(R.id.btnConfigureSink).setOnClickListener(b -> Navigation.findNavController(view).navigate(R.id.action_overviewFragment_to_sinkConfigFragment));
     }
 }
