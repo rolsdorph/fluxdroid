@@ -1,6 +1,7 @@
 package io.rolsdorph.fluxdroid;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -13,6 +14,11 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
 public class SinkConfigFragment extends PreferenceFragmentCompat {
+    private static final String TAG = "SinkConfigFragment";
+
+    EditTextPreference influxUsername;
+    EditTextPreference influxPassword;
+    EditTextPreference influxToken;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -23,24 +29,30 @@ public class SinkConfigFragment extends PreferenceFragmentCompat {
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.sink_config, rootKey);
 
+        influxUsername = findPreference("influx_username");
+        influxPassword = findPreference("influx_password");
+        influxToken = findPreference("influx_token");
 
         ListPreference influxVersion = findPreference("influx_version");
-        EditTextPreference influxUsername = findPreference("influx_username");
-        EditTextPreference influxPassword = findPreference("influx_password");
-        EditTextPreference influxToken = findPreference("influx_token");
+        setInfluxVersion(InfluxVersion.fromString(influxVersion.getValue()));
 
         influxVersion.setOnPreferenceChangeListener((Preference p, Object newValue) -> {
-            if (newValue.toString().equals("influx1")) {
-                influxUsername.setEnabled(true);
-                influxPassword.setEnabled(true);
-                influxToken.setEnabled(false);
-            } else {
-                influxUsername.setEnabled(false);
-                influxPassword.setEnabled(false);
-                influxToken.setEnabled(true);
-            }
-
+            setInfluxVersion(InfluxVersion.fromString((String) newValue));
             return true;
         });
+    }
+
+    private void setInfluxVersion(InfluxVersion influxVersion) {
+        if (influxVersion == InfluxVersion.Influx1X) {
+            influxUsername.setEnabled(true);
+            influxPassword.setEnabled(true);
+            influxToken.setEnabled(false);
+        } else if (influxVersion == InfluxVersion.Influx2X) {
+            influxUsername.setEnabled(false);
+            influxPassword.setEnabled(false);
+            influxToken.setEnabled(true);
+        } else {
+            Log.e(TAG, "Unexpected influx version: " + influxVersion);
+        }
     }
 }
