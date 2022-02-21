@@ -1,8 +1,10 @@
 package io.rolsdorph.fluxdroid;
 
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -33,13 +35,17 @@ public class SinkConfigFragment extends PreferenceFragmentCompat {
         influxPassword = findPreference("influx_password");
         influxToken = findPreference("influx_token");
 
+        // Only show the relevant auth field for the selected Influx version
         ListPreference influxVersion = findPreference("influx_version");
         setInfluxVersion(InfluxVersion.fromString(influxVersion.getValue()));
-
         influxVersion.setOnPreferenceChangeListener((Preference p, Object newValue) -> {
             setInfluxVersion(InfluxVersion.fromString((String) newValue));
             return true;
         });
+
+        // Somehow it's not possible to set this through the XML...
+        EditTextPreference influxPort = findPreference("influx_port");
+        influxPort.setOnBindEditTextListener((EditText e) -> e.setInputType(InputType.TYPE_CLASS_NUMBER));
     }
 
     private void setInfluxVersion(InfluxVersion influxVersion) {
