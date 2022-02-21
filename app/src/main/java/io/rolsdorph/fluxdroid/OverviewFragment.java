@@ -3,6 +3,7 @@ package io.rolsdorph.fluxdroid;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,6 +20,11 @@ public class OverviewFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         SinkConfigRepository sinkConfigRepository = new SinkConfigRepository(getContext());
+        EventSelectionRepository eventSelectionRepository = new EventSelectionRepository(getContext());
+
+        int numEvents = eventSelectionRepository.getEventCount();
+        TextView eventCountText = view.findViewById(R.id.eventCountText);
+        eventCountText.setText(getResources().getQuantityString(R.plurals.num_events, numEvents, numEvents));
 
         view.findViewById(R.id.btnConfigureEvents).setOnClickListener(b -> Navigation.findNavController(view).navigate(R.id.action_overviewFragment_to_eventSelectionFragment));
         view.findViewById(R.id.btnConfigureSink).setOnClickListener(b -> Navigation.findNavController(view).navigate(R.id.action_overviewFragment_to_sinkConfigFragment));

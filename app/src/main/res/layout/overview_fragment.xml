@@ -81,13 +81,13 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:contentDescription="@string/desc_numbered_list"
-                app:layout_constraintBottom_toBottomOf="@+id/eventCountText"
+                app:layout_constraintBottom_toBottomOf="@+id/eventCountContent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/eventCountText"
+                app:layout_constraintTop_toTopOf="@+id/eventCountContent"
                 app:srcCompat="@drawable/ic_baseline_format_list_numbered_32" />
 
             <LinearLayout
-                android:id="@+id/eventCountText"
+                android:id="@+id/eventCountContent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
@@ -104,9 +104,9 @@
                     android:textColor="?android:attr/textColorSecondary" />
 
                 <TextView
+                    android:id="@+id/eventCountText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="3 events"
                     android:textAppearance="?attr/textAppearanceHeadline6" />
 
             </LinearLayout>
@@ -121,7 +121,7 @@
                 android:paddingEnd="0dp"
                 android:text="@string/configure"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/eventCountText" />
+                app:layout_constraintTop_toBottomOf="@+id/eventCountContent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>

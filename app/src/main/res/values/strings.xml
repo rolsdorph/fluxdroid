@@ -7,6 +7,10 @@
     <string name="events_sent">events sent</string>
 
     <string name="subscribed_to">Subscribed to</string>
+    <plurals name="num_events">
+        <item quantity="one">%d event</item>
+        <item quantity="other">%d events</item>
+    </plurals>
 
     <string name="no_destination_configured">No destination configured</string>
     <string name="sending_events_to">Sending events to</string>
