@@ -17,8 +17,8 @@ public final class EventSelectionRepository {
 
     public int getEventCount() {
         int eventCount = 0;
-        for (SystemEvent systemEvent : SystemEvent.values()) {
-            String eventKey = context.getString(systemEvent.configKey);
+        for (EventType eventType : EventType.values()) {
+            String eventKey = context.getString(eventType.getConfigKey());
             if (eventKey != null && sharedPreferences.getBoolean(eventKey, false)) {
                 eventCount++;
             }
@@ -26,16 +26,4 @@ public final class EventSelectionRepository {
         return eventCount;
     }
 
-    private enum SystemEvent {
-        SystemStartup(R.string.evt_system_startup),
-        IncomingCall(R.string.evt_incoming_call),
-        OutgoingCall(R.string.evt_outgoing_call),
-        IncomingText(R.string.evt_incoming_text);
-
-        private final int configKey;
-
-        SystemEvent(int configKey) {
-            this.configKey = configKey;
-        }
-    }
 }
