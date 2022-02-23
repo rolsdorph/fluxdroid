@@ -1,5 +1,6 @@
 package io.rolsdorph.fluxdroid;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -8,12 +9,11 @@ import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.NavigationUI;
 import androidx.preference.EditTextPreference;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
+import androidx.preference.PreferenceManager;
 
 public class SinkConfigFragment extends PreferenceFragmentCompat {
     private static final String TAG = "SinkConfigFragment";
@@ -21,6 +21,7 @@ public class SinkConfigFragment extends PreferenceFragmentCompat {
     EditTextPreference influxUsername;
     EditTextPreference influxPassword;
     EditTextPreference influxToken;
+    SharedPreferences preferences;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -30,6 +31,8 @@ public class SinkConfigFragment extends PreferenceFragmentCompat {
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.sink_config, rootKey);
+
+        preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
         influxUsername = findPreference("influx_username");
         influxPassword = findPreference("influx_password");
@@ -46,19 +49,46 @@ public class SinkConfigFragment extends PreferenceFragmentCompat {
         // Somehow it's not possible to set this through the XML...
         EditTextPreference influxPort = findPreference("influx_port");
         influxPort.setOnBindEditTextListener((EditText e) -> e.setInputType(InputType.TYPE_CLASS_NUMBER));
+
+        markAsPassword(findPreference("influx_password"));
+        markAsPassword(findPreference("influx_token"));
+    }
+
+    private void markAsPassword(EditTextPreference editTextPreference) {
+        editTextPreference.setOnBindEditTextListener((EditText e) ->
+                e.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD));
+        editTextPreference.setSummaryProvider(new PasswordSummaryProvider());
     }
 
     private void setInfluxVersion(InfluxVersion influxVersion) {
         if (influxVersion == InfluxVersion.Influx1X) {
-            influxUsername.setEnabled(true);
-            influxPassword.setEnabled(true);
-            influxToken.setEnabled(false);
+            influxUsername.setVisible(true);
+            influxPassword.setVisible(true);
+            clearAndHidePreference(influxToken);
         } else if (influxVersion == InfluxVersion.Influx2X) {
-            influxUsername.setEnabled(false);
-            influxPassword.setEnabled(false);
-            influxToken.setEnabled(true);
+            clearAndHidePreference(influxUsername);
+            clearAndHidePreference(influxPassword);
+            influxToken.setVisible(true);
         } else {
             Log.e(TAG, "Unexpected influx version: " + influxVersion);
+        }
+    }
+
+    private void clearAndHidePreference(EditTextPreference editTextPreference) {
+        editTextPreference.setVisible(false);
+        editTextPreference.setText(null);
+        preferences.edit().remove(editTextPreference.getKey()).apply();
+    }
+
+    private final class PasswordSummaryProvider implements Preference.SummaryProvider<EditTextPreference> {
+        @Override
+        public CharSequence provideSummary(@NonNull EditTextPreference preference) {
+            String password = preference.getText();
+            if (password == null || password.isEmpty()) {
+                return getResources().getString(R.string.pw_not_set);
+            } else {
+                return getResources().getString(R.string.pw_censored);
+            }
         }
     }
 }
