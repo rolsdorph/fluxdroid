@@ -26,4 +26,8 @@ public final class EventSelectionRepository {
         return eventCount;
     }
 
+    public boolean isSelected(EventType eventType) {
+        return sharedPreferences.getBoolean(context.getString(eventType.getConfigKey()), false);
+    }
+
 }
