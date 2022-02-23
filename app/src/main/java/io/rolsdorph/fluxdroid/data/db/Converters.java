@@ -1,4 +1,4 @@
-package io.rolsdorph.fluxdroid.db;
+package io.rolsdorph.fluxdroid.data.db;
 
 import androidx.room.TypeConverter;
 

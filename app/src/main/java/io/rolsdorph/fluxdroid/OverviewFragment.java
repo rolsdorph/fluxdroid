@@ -11,6 +11,10 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.navigation.Navigation;
 
+import io.rolsdorph.fluxdroid.data.event.EventRepository;
+import io.rolsdorph.fluxdroid.data.event.EventSelectionRepository;
+import io.rolsdorph.fluxdroid.data.sink.SinkConfigRepository;
+
 public class OverviewFragment extends Fragment {
     public OverviewFragment() {
         super(R.layout.overview_fragment);

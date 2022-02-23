@@ -1,16 +1,14 @@
-package io.rolsdorph.fluxdroid;
+package io.rolsdorph.fluxdroid.data.event;
 
 import android.content.Context;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Room;
 
-import java.util.concurrent.CompletableFuture;
-
 import io.reactivex.rxjava3.core.Completable;
-import io.rolsdorph.fluxdroid.db.AppDatabase;
-import io.rolsdorph.fluxdroid.db.ResultType;
-import io.rolsdorph.fluxdroid.db.SentEvent;
+import io.rolsdorph.fluxdroid.data.db.AppDatabase;
+import io.rolsdorph.fluxdroid.data.db.ResultType;
+import io.rolsdorph.fluxdroid.data.db.SentEvent;
 
 public final class EventRepository {
     private final AppDatabase db;

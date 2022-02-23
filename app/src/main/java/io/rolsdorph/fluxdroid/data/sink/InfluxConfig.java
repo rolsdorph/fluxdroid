@@ -1,4 +1,4 @@
-package io.rolsdorph.fluxdroid;
+package io.rolsdorph.fluxdroid.data.sink;
 
 public final class InfluxConfig {
     private final String host;

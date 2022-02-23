@@ -1,4 +1,4 @@
-package io.rolsdorph.fluxdroid.db;
+package io.rolsdorph.fluxdroid.data.db;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey;
 
 import java.time.Instant;
 
-import io.rolsdorph.fluxdroid.EventType;
+import io.rolsdorph.fluxdroid.data.event.EventType;
 
 @Entity(tableName = "sent_events")
 public class SentEvent {

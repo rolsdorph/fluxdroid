@@ -1,4 +1,6 @@
-package io.rolsdorph.fluxdroid;
+package io.rolsdorph.fluxdroid.data.event;
+
+import io.rolsdorph.fluxdroid.R;
 
 public enum EventType {
     SystemStartup(R.string.evt_system_startup),

@@ -15,6 +15,8 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
 
+import io.rolsdorph.fluxdroid.data.sink.InfluxVersion;
+
 public class SinkConfigFragment extends PreferenceFragmentCompat {
     private static final String TAG = "SinkConfigFragment";
 

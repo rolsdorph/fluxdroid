@@ -1,4 +1,4 @@
-package io.rolsdorph.fluxdroid;
+package io.rolsdorph.fluxdroid.data.sink;
 
 import android.content.Context;
 import android.content.SharedPreferences;

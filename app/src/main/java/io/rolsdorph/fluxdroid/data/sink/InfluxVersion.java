@@ -1,11 +1,11 @@
-package io.rolsdorph.fluxdroid;
+package io.rolsdorph.fluxdroid.data.sink;
 
 import android.util.Log;
 
 public enum InfluxVersion {
     Influx1X, Influx2X, Unknown;
 
-    static InfluxVersion fromString(String s) {
+    public static InfluxVersion fromString(String s) {
         if (s == null) {
             return Unknown;
         } else if (s.equals("influx1")) {
