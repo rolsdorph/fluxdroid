@@ -27,9 +27,6 @@
     <string name="system_startup">System startup</string>
     <string name="system_startup_description">Sent when the device starts up</string>
 
-    <string name="incoming_call">Incoming call</string>
-    <string name="incoming_call_description">Sent when the device receives a call</string>
-
     <string name="outgoing_call">Outgoing call</string>
     <string name="outgoing_call_description">Sent when a call is made</string>
 

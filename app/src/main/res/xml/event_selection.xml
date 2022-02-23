@@ -8,11 +8,6 @@
             app:title="@string/system_startup" />
 
         <SwitchPreferenceCompat
-            app:key="@string/evt_incoming_call"
-            app:summary="@string/incoming_call_description"
-            app:title="@string/incoming_call" />
-
-        <SwitchPreferenceCompat
             app:key="@string/evt_outgoing_call"
             app:summary="@string/outgoing_call_description"
             app:title="@string/outgoing_call" />

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="evt_system_startup" tools:ignore="ExtraTranslation">evt_system_startup</string>
-    <string name="evt_incoming_call" tools:ignore="ExtraTranslation">evt_incoming_call</string>
     <string name="evt_outgoing_call" tools:ignore="ExtraTranslation">evt_outgoing_call</string>
     <string name="evt_incoming_text" tools:ignore="ExtraTranslation">evt_incoming_text</string>
 </resources>
