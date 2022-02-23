@@ -3,17 +3,17 @@
     <PreferenceCategory app:title="@string/select_events">
 
         <SwitchPreferenceCompat
-            app:key="@string/evt_system_startup"
+            app:key="evt_system_startup"
             app:summary="@string/system_startup_description"
             app:title="@string/system_startup" />
 
         <SwitchPreferenceCompat
-            app:key="@string/evt_outgoing_call"
+            app:key="evt_outgoing_call"
             app:summary="@string/outgoing_call_description"
             app:title="@string/outgoing_call" />
 
         <SwitchPreferenceCompat
-            app:key="@string/evt_incoming_text"
+            app:key="evt_incoming_text"
             app:summary="@string/incoming_text_description"
             app:title="@string/incoming_text" />
 

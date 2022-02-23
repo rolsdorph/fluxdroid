@@ -7,19 +7,16 @@ import androidx.preference.PreferenceManager;
 
 public final class EventSelectionRepository {
 
-    private final Context context;
     private final SharedPreferences sharedPreferences;
 
     public EventSelectionRepository(Context context) {
-        this.context = context;
         this.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
     public int getEventCount() {
         int eventCount = 0;
         for (EventType eventType : EventType.values()) {
-            String eventKey = context.getString(eventType.getConfigKey());
-            if (eventKey != null && sharedPreferences.getBoolean(eventKey, false)) {
+            if (sharedPreferences.getBoolean(eventType.getConfigKey(), false)) {
                 eventCount++;
             }
         }
@@ -27,7 +24,7 @@ public final class EventSelectionRepository {
     }
 
     public boolean isSelected(EventType eventType) {
-        return sharedPreferences.getBoolean(context.getString(eventType.getConfigKey()), false);
+        return sharedPreferences.getBoolean(eventType.getConfigKey(), false);
     }
 
 }
