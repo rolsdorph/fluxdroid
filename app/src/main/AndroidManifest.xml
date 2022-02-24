@@ -21,6 +21,11 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".EventSelectionActivity"
+            android:exported="false"
+            android:label="@string/select_events" />
+
         <receiver
             android:name=".SystemEventReceiver"
             android:exported="true"

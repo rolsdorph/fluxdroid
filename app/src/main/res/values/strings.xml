@@ -64,4 +64,7 @@
     <string name="desc_stonks">Chart going up</string>
     <string name="desc_cloud">Cloud</string>
     <string name="desc_numbered_list">Numbered list</string>
+    <string name="missing_permissions_info">Some events are unavailable due to missing app permissions.</string>
+    <string name="configure_permissions">Configure permissions</string>
+    <string name="dont_show_again">Don\'t show again</string>
 </resources>
