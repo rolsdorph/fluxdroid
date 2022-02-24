@@ -13,16 +13,6 @@ public final class EventSelectionRepository {
         this.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
-    public int getEventCount() {
-        int eventCount = 0;
-        for (EventType eventType : EventType.values()) {
-            if (sharedPreferences.getBoolean(eventType.getConfigKey(), false)) {
-                eventCount++;
-            }
-        }
-        return eventCount;
-    }
-
     public boolean isSelected(EventType eventType) {
         return sharedPreferences.getBoolean(eventType.getConfigKey(), false);
     }

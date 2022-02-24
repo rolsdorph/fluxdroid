@@ -9,8 +9,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import io.rolsdorph.fluxdroid.data.EventSelectionViewModel;
 import io.rolsdorph.fluxdroid.data.event.EventRepository;
 import io.rolsdorph.fluxdroid.data.event.EventSelectionRepository;
 import io.rolsdorph.fluxdroid.data.sink.SinkConfigRepository;
@@ -38,9 +40,10 @@ public class OverviewFragment extends Fragment {
         });
 
         // Selected events
-        int numSelectedEvents = eventSelectionRepository.getEventCount();
         TextView selectedEventsCountText = view.findViewById(R.id.selectedEventsCountText);
-        selectedEventsCountText.setText(getResources().getQuantityString(R.plurals.num_events, numSelectedEvents, numSelectedEvents));
+        EventSelectionViewModel viewModel = new ViewModelProvider(requireActivity()).get(EventSelectionViewModel.class);
+        viewModel.getSubscribedEventCount().observe(getViewLifecycleOwner(), numSelectedEvents ->
+                selectedEventsCountText.setText(getResources().getQuantityString(R.plurals.num_events, numSelectedEvents, numSelectedEvents)));
         view.findViewById(R.id.btnConfigureEvents).setOnClickListener(b -> Navigation.findNavController(view).navigate(R.id.action_overviewFragment_to_eventSelectionFragment));
 
         // Sink configuration
