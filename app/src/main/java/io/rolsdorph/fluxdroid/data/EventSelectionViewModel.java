@@ -18,54 +18,65 @@ import io.rolsdorph.fluxdroid.data.event.EventType;
 
 public class EventSelectionViewModel extends AndroidViewModel {
 
-    private MutableLiveData<List<EventType>> eventsMissingPermission;
-    private EventSelectionRepository eventSelectionRepository;
+    private MutableLiveData<List<Event>> events;
+    private final EventSelectionRepository eventSelectionRepository;
 
     public EventSelectionViewModel(@NonNull Application application) {
         super(application);
         eventSelectionRepository = new EventSelectionRepository(application);
     }
 
-    public LiveData<Integer> getSubscribedEventCount() {
-        return Transformations.map(getEventsMissingPermission(), (List<EventType> eventsMissing) -> {
-            int count = 0;
-            for (EventType eventType : EventType.values()) {
-                if (eventSelectionRepository.isSelected(eventType) && !eventsMissing.contains(eventType)) {
-                    count++;
-                }
-            }
-            return count;
-        });
+    public LiveData<Long> getSubscribedEventCount() {
+        return Transformations.map(getEvents(), (List<Event> currentEvents) -> currentEvents.stream()
+                .filter(e -> !e.isMissingPermission() && eventSelectionRepository.isSelected(e.getEventType()))
+                .count());
     }
 
-    public LiveData<List<EventType>> getEventsMissingPermission() {
-        if (eventsMissingPermission == null) {
-            eventsMissingPermission = new MutableLiveData<>();
-            loadMissingPermissions();
+    public LiveData<List<Event>> getEvents() {
+        if (events == null) {
+            events = new MutableLiveData<>();
+            loadEvents();
         }
 
-        return eventsMissingPermission;
+        return events;
     }
 
     public LiveData<Boolean> hasAllPermissions() {
-        return Transformations.map(eventsMissingPermission, List::isEmpty);
+        return Transformations.map(events, l -> l.stream().noneMatch(Event::isMissingPermission));
     }
 
     public void onPermissionsChange(Map<String, Boolean> changes) {
-        loadMissingPermissions();
+        loadEvents();
     }
 
-    private void loadMissingPermissions() {
-        List<EventType> missingPermissions = new ArrayList<>();
+    private void loadEvents() {
+        List<Event> newEvents = new ArrayList<>();
         for (EventType eventType : EventType.values()) {
-            if (eventType.getPermissionKey().isPresent() && !hasPermission(eventType.getPermissionKey().get())) {
-                missingPermissions.add(eventType);
-            }
+            boolean missingPermission = eventType.getPermissionKey().isPresent() && !hasPermission(eventType.getPermissionKey().get());
+            newEvents.add(new Event(eventType, missingPermission));
         }
-        eventsMissingPermission.setValue(missingPermissions);
+        events.setValue(newEvents);
     }
 
     private boolean hasPermission(String permissionKey) {
         return getApplication().checkSelfPermission(permissionKey) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    public static final class Event {
+        private final EventType eventType;
+        private final boolean missingPermission;
+
+        public Event(EventType eventType, boolean missingPermission) {
+            this.eventType = eventType;
+            this.missingPermission = missingPermission;
+        }
+
+        public EventType getEventType() {
+            return eventType;
+        }
+
+        public boolean isMissingPermission() {
+            return missingPermission;
+        }
     }
 }

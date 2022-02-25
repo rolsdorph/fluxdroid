@@ -30,15 +30,19 @@ public class EventSelectionFragment extends PreferenceFragmentCompat {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        viewModel.getEventsMissingPermission().observe(getViewLifecycleOwner(),
-                (List<EventType> eventsMissingPermission) -> {
-                    for (EventType missingPermission : eventsMissingPermission) {
-                        SwitchPreferenceCompat preference = findPreference(missingPermission.getConfigKey());
+        viewModel.getEvents().observe(getViewLifecycleOwner(),
+                (List<EventSelectionViewModel.Event> events) -> {
+                    for (EventSelectionViewModel.Event event : events) {
+                        SwitchPreferenceCompat preference = findPreference(event.getEventType().getConfigKey());
                         if (preference == null) {
-                            Log.e(TAG, "Missing preference view for " + missingPermission);
+                            Log.e(TAG, "Missing preference view for " + event);
                         } else {
-                            preference.setChecked(false);
-                            preference.setEnabled(false);
+                            if (event.isMissingPermission()) {
+                                preference.setChecked(false);
+                                preference.setEnabled(false);
+                            } else {
+                                preference.setEnabled(true);
+                            }
                         }
                     }
                 });

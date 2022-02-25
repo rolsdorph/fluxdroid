@@ -43,7 +43,7 @@ public class OverviewFragment extends Fragment {
         TextView selectedEventsCountText = view.findViewById(R.id.selectedEventsCountText);
         EventSelectionViewModel viewModel = new ViewModelProvider(requireActivity()).get(EventSelectionViewModel.class);
         viewModel.getSubscribedEventCount().observe(getViewLifecycleOwner(), numSelectedEvents ->
-                selectedEventsCountText.setText(getResources().getQuantityString(R.plurals.num_events, numSelectedEvents, numSelectedEvents)));
+                selectedEventsCountText.setText(getResources().getQuantityString(R.plurals.num_events, numSelectedEvents.intValue(), numSelectedEvents.intValue())));
         view.findViewById(R.id.btnConfigureEvents).setOnClickListener(b -> Navigation.findNavController(view).navigate(R.id.action_overviewFragment_to_eventSelectionActivity));
 
         // Sink configuration
