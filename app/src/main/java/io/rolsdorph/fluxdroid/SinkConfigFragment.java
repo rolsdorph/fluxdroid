@@ -31,6 +31,9 @@ public class SinkConfigFragment extends PreferenceFragmentCompat {
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+        SharedPreferencesDataStore dataStore = new SharedPreferencesDataStore(SinkConfigRepository.createSinkSharedPreferences(requireContext()));
+        getPreferenceManager().setPreferenceDataStore(dataStore);
+
         setPreferencesFromResource(R.xml.sink_config, rootKey);
 
         sinkConfigRepository = new SinkConfigRepository(requireContext());

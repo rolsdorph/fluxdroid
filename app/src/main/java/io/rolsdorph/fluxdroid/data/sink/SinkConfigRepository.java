@@ -4,8 +4,11 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import androidx.preference.PreferenceManager;
+import androidx.security.crypto.EncryptedSharedPreferences;
+import androidx.security.crypto.MasterKeys;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.Optional;
 
 public final class SinkConfigRepository {
@@ -14,7 +17,22 @@ public final class SinkConfigRepository {
     private final SharedPreferences sharedPreferences;
 
     public SinkConfigRepository(Context context) {
-        this.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        sharedPreferences = createSinkSharedPreferences(context);
+    }
+
+    public static SharedPreferences createSinkSharedPreferences(Context context) {
+        try {
+            return EncryptedSharedPreferences.create(
+                    "secret_shared_refs",
+                    MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC),
+                    context,
+                    EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                    EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+            );
+        } catch (GeneralSecurityException | IOException e) {
+            Log.e(TAG, "Failed to create encryption key alias", e);
+            throw new IllegalStateException("Failed to set up encrypted preferences");
+        }
     }
 
     public boolean cloudConfigured() {
