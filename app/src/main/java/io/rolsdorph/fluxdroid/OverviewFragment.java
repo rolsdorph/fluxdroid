@@ -42,7 +42,7 @@ public class OverviewFragment extends Fragment {
             eventCountText.setText(getResources().getQuantityString(R.plurals.num_events_sent, newCount));
         });
 
-        view.findViewById(R.id.btnConfigureEvents).setOnClickListener(b -> Navigation.findNavController(view).navigate(R.id.action_overviewFragment_to_eventSelectionActivity));
+        view.findViewById(R.id.btnConfigureEvents).setOnClickListener(b -> Navigation.findNavController(view).navigate(R.id.action_overviewFragment_to_eventSelectionFragment));
 
         // Sink configuration
         ImageView imageView = view.findViewById(R.id.sinkIcon);

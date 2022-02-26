@@ -6,15 +6,15 @@
     android:layout_height="match_parent">
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/eventSelectionFragment"
-        android:name="io.rolsdorph.fluxdroid.EventSelectionFragment"
+        android:id="@+id/eventToggleFragment"
+        android:name="io.rolsdorph.fluxdroid.EventToggleFragment"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmentContainerView2"
+        android:id="@+id/missingPermissionsFragment"
         android:name="io.rolsdorph.fluxdroid.MissingPermissionsFragment"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

@@ -10,21 +10,18 @@
         android:label="Fluxdroid"
         tools:layout="@layout/overview_fragment">
         <action
-            android:id="@+id/action_overviewFragment_to_eventSelectionFragment"
-            app:destination="@id/eventSelectionFragment" />
-        <action
             android:id="@+id/action_overviewFragment_to_sinkConfigFragment"
             app:destination="@id/sinkConfigFragment" />
         <action
-            android:id="@+id/action_overviewFragment_to_eventSelectionActivity"
-            app:destination="@id/eventSelectionActivity" />
+            android:id="@+id/action_overviewFragment_to_eventSelectionFragment"
+            app:destination="@id/eventSelectionFragment" />
     </fragment>
     <fragment
         android:id="@+id/sinkConfigFragment"
         android:name="io.rolsdorph.fluxdroid.SinkConfigFragment"
         android:label="@string/configure_destination" />
-    <activity
-        android:id="@+id/eventSelectionActivity"
-        android:name="io.rolsdorph.fluxdroid.EventSelectionActivity"
-        android:label="EventSelectionActivity" />
+    <fragment
+        android:id="@+id/eventSelectionFragment"
+        android:name="io.rolsdorph.fluxdroid.EventSelectionFragment"
+        android:label="EventSelectionFragment" />
 </navigation>
