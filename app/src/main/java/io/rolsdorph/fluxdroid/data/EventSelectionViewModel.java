@@ -19,17 +19,9 @@ import io.rolsdorph.fluxdroid.data.event.EventType;
 public class EventSelectionViewModel extends AndroidViewModel {
 
     private MutableLiveData<List<Event>> events;
-    private final EventSelectionRepository eventSelectionRepository;
 
     public EventSelectionViewModel(@NonNull Application application) {
         super(application);
-        eventSelectionRepository = new EventSelectionRepository(application);
-    }
-
-    public LiveData<Long> getSubscribedEventCount() {
-        return Transformations.map(getEvents(), (List<Event> currentEvents) -> currentEvents.stream()
-                .filter(e -> !e.isMissingPermission() && eventSelectionRepository.isSelected(e.getEventType()))
-                .count());
     }
 
     public LiveData<List<Event>> getEvents() {

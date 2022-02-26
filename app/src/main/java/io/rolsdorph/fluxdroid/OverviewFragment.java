@@ -1,5 +1,6 @@
 package io.rolsdorph.fluxdroid;
 
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,9 +13,12 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import java.security.Permission;
+
 import io.rolsdorph.fluxdroid.data.EventSelectionViewModel;
 import io.rolsdorph.fluxdroid.data.event.EventRepository;
 import io.rolsdorph.fluxdroid.data.event.EventSelectionRepository;
+import io.rolsdorph.fluxdroid.data.event.EventType;
 import io.rolsdorph.fluxdroid.data.sink.SinkConfigRepository;
 
 public class OverviewFragment extends Fragment {
@@ -41,9 +45,8 @@ public class OverviewFragment extends Fragment {
 
         // Selected events
         TextView selectedEventsCountText = view.findViewById(R.id.selectedEventsCountText);
-        EventSelectionViewModel viewModel = new ViewModelProvider(requireActivity()).get(EventSelectionViewModel.class);
-        viewModel.getSubscribedEventCount().observe(getViewLifecycleOwner(), numSelectedEvents ->
-                selectedEventsCountText.setText(getResources().getQuantityString(R.plurals.num_events, numSelectedEvents.intValue(), numSelectedEvents.intValue())));
+        int numSelectedEvents = (int) eventSelectionRepository.getSubscribedEvents().stream().filter(this::hasPermission).count();
+        selectedEventsCountText.setText(getResources().getQuantityString(R.plurals.num_events, numSelectedEvents, numSelectedEvents));
         view.findViewById(R.id.btnConfigureEvents).setOnClickListener(b -> Navigation.findNavController(view).navigate(R.id.action_overviewFragment_to_eventSelectionActivity));
 
         // Sink configuration
@@ -60,5 +63,11 @@ public class OverviewFragment extends Fragment {
             sinkTextNotConfigured.setVisibility(View.VISIBLE);
         }
         view.findViewById(R.id.btnConfigureSink).setOnClickListener(b -> Navigation.findNavController(view).navigate(R.id.action_overviewFragment_to_sinkConfigFragment));
+    }
+
+    private boolean hasPermission(EventType eventType) {
+        return eventType.getPermissionKey()
+                .map(p -> requireActivity().checkSelfPermission(p) == PackageManager.PERMISSION_GRANTED)
+                .orElse(true);
     }
 }
