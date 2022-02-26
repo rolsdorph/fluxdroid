@@ -40,10 +40,13 @@
     <string name="pw_censored">******</string>
 
     <string name="influx_host_title">Host</string>
-    <string name="influx_host_summary">Influx host, including protocol</string>
+    <string name="influx_host_summary">Influx host (not including protocol)</string>
 
     <string name="influx_port_title">Port</string>
     <string name="influx_port_summary">Influx port</string>
+
+    <string name="influx_tls_title">Use HTTPS</string>
+    <string name="influx_tls_summary">Cleartext communication with Influx is highly discouraged.</string>
 
     <string name="influx_db_title">Database</string>
     <string name="influx_db_summary">Influx database name</string>
