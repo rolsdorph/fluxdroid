@@ -14,7 +14,9 @@ public final class EventRepository {
     private final AppDatabase db;
 
     public EventRepository(Context context) {
-        db = Room.databaseBuilder(context, AppDatabase.class, AppDatabase.DB_NAME).build();
+        db = Room.databaseBuilder(context, AppDatabase.class, AppDatabase.DB_NAME)
+                .enableMultiInstanceInvalidation() // TODO: For our use cases this can probably be replaced with a singleton
+                .build();
     }
 
     public LiveData<Integer> getTotalSuccessCount() {
