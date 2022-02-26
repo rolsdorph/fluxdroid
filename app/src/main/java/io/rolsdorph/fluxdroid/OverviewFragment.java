@@ -31,7 +31,6 @@ public class OverviewFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         SinkConfigRepository sinkConfigRepository = new SinkConfigRepository(getContext());
-        EventSelectionRepository eventSelectionRepository = new EventSelectionRepository(getContext());
         EventRepository eventRepository = new EventRepository(getContext());
 
         // Total number of events
@@ -43,10 +42,6 @@ public class OverviewFragment extends Fragment {
             eventCountText.setText(getResources().getQuantityString(R.plurals.num_events_sent, newCount));
         });
 
-        // Selected events
-        TextView selectedEventsCountText = view.findViewById(R.id.selectedEventsCountText);
-        int numSelectedEvents = (int) eventSelectionRepository.getSubscribedEvents().stream().filter(this::hasPermission).count();
-        selectedEventsCountText.setText(getResources().getQuantityString(R.plurals.num_events, numSelectedEvents, numSelectedEvents));
         view.findViewById(R.id.btnConfigureEvents).setOnClickListener(b -> Navigation.findNavController(view).navigate(R.id.action_overviewFragment_to_eventSelectionActivity));
 
         // Sink configuration
@@ -64,6 +59,19 @@ public class OverviewFragment extends Fragment {
         }
         view.findViewById(R.id.btnConfigureSink).setOnClickListener(b -> Navigation.findNavController(view).navigate(R.id.action_overviewFragment_to_sinkConfigFragment));
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        EventSelectionRepository eventSelectionRepository = new EventSelectionRepository(getContext());
+
+        // Selected events
+        TextView selectedEventsCountText = requireView().findViewById(R.id.selectedEventsCountText);
+        int numSelectedEvents = (int) eventSelectionRepository.getSubscribedEvents().stream().filter(this::hasPermission).count();
+        selectedEventsCountText.setText(getResources().getQuantityString(R.plurals.num_events, numSelectedEvents, numSelectedEvents));
+    }
+
 
     private boolean hasPermission(EventType eventType) {
         return eventType.getPermissionKey()
