@@ -1,6 +1,5 @@
 package io.rolsdorph.fluxdroid;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -13,9 +12,9 @@ import androidx.preference.EditTextPreference;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
-import androidx.preference.PreferenceManager;
 
 import io.rolsdorph.fluxdroid.data.sink.InfluxVersion;
+import io.rolsdorph.fluxdroid.data.sink.SinkConfigRepository;
 
 public class SinkConfigFragment extends PreferenceFragmentCompat {
     private static final String TAG = "SinkConfigFragment";
@@ -23,7 +22,7 @@ public class SinkConfigFragment extends PreferenceFragmentCompat {
     EditTextPreference influxUsername;
     EditTextPreference influxPassword;
     EditTextPreference influxToken;
-    SharedPreferences preferences;
+    SinkConfigRepository sinkConfigRepository;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -34,7 +33,7 @@ public class SinkConfigFragment extends PreferenceFragmentCompat {
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.sink_config, rootKey);
 
-        preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        sinkConfigRepository = new SinkConfigRepository(requireContext());
 
         influxUsername = findPreference("influx_username");
         influxPassword = findPreference("influx_password");
@@ -79,7 +78,7 @@ public class SinkConfigFragment extends PreferenceFragmentCompat {
     private void clearAndHidePreference(EditTextPreference editTextPreference) {
         editTextPreference.setVisible(false);
         editTextPreference.setText(null);
-        preferences.edit().remove(editTextPreference.getKey()).apply();
+        sinkConfigRepository.clearPreference(editTextPreference.getKey());
     }
 
     private final class PasswordSummaryProvider implements Preference.SummaryProvider<EditTextPreference> {

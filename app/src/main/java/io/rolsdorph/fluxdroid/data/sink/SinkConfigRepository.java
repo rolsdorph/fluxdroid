@@ -26,6 +26,10 @@ public final class SinkConfigRepository {
         return influxAuth.flatMap(this::buildInfluxConfig);
     }
 
+    public void clearPreference(String settingsKey) {
+        sharedPreferences.edit().remove(settingsKey).apply();
+    }
+
     private Optional<InfluxAuth> buildInfluxAuth() {
         String influxVersion = sharedPreferences.getString("influx_version", null);
         Log.i(TAG, "Influx version: " + influxVersion);
