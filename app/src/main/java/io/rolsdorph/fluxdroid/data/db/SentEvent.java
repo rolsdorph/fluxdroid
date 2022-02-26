@@ -1,5 +1,6 @@
 package io.rolsdorph.fluxdroid.data.db;
 
+import androidx.annotation.Nullable;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -23,13 +24,9 @@ public class SentEvent {
     public ResultType resultType;
 
     @ColumnInfo(name = "http_response_code")
-    public int httpResponseCode;
+    public Integer httpResponseCode;
 
-    public static SentEvent successful(EventType eventType, int httpResponseCode) {
-        return new SentEvent(eventType, Instant.now(), ResultType.Success, httpResponseCode);
-    }
-
-    public SentEvent(EventType eventType, Instant receivedAt, ResultType resultType, int httpResponseCode) {
+    public SentEvent(@Nullable EventType eventType, Instant receivedAt, ResultType resultType, @Nullable Integer httpResponseCode) {
         this.eventType = eventType;
         this.receivedAt = receivedAt;
         this.resultType = resultType;
