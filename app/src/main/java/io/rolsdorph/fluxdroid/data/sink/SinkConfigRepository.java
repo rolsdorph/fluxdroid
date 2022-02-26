@@ -67,10 +67,11 @@ public final class SinkConfigRepository {
         Integer port = getPort();
         String db = getNonEmptyConfig("influx_db");
         String retention = getNonEmptyConfig("influx_retention");
+        String measurement = getNonEmptyConfig("influx_measurement");
 
-        if (host != null && port != null && db != null && retention != null) {
+        if (host != null && port != null && db != null && retention != null && measurement != null) {
             Log.i(TAG, "Influx fully configured!");
-            return Optional.of(new InfluxConfig(host, port, influxAuth, retention, db));
+            return Optional.of(new InfluxConfig(host, port, influxAuth, retention, db, measurement));
         } else {
             Log.i(TAG, "Influx not fully configured. Missing fields: " +
                     ((host == null) ? "host, " : "")
