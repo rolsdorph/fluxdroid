@@ -32,4 +32,32 @@ public final class InfluxConfig {
     public static InfluxConfig v2(String host, int port, boolean useTLS, String token, String retentionPolicy, String database, String measurement) {
         return new InfluxConfig(host, port, useTLS, new InfluxAuth.Token(token), retentionPolicy, database, measurement);
     }
+
+    public String getHost() {
+        return host;
+    }
+
+    public int getPort() {
+        return port;
+    }
+
+    public boolean useTLS() {
+        return useTLS;
+    }
+
+    public InfluxAuth getInfluxAuth() {
+        return influxAuth;
+    }
+
+    public String getRetentionPolicy() {
+        return retentionPolicy;
+    }
+
+    public String getDatabase() {
+        return database;
+    }
+
+    public String getMeasurement() {
+        return measurement;
+    }
 }
