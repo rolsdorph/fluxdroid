@@ -54,9 +54,6 @@
     <string name="influx_measurement_title">Measurement</string>
     <string name="influx_measurement_summary">Influx measurement for emitted events</string>
 
-    <string name="influx_retention_title">Retention Policy</string>
-    <string name="influx_retention_summary">Retention policy name</string>
-
     <string name="influx_username_title">Username</string>
     <string name="influx_username_summary">InfluxDB username</string>
 

@@ -36,12 +36,6 @@
             app:useSimpleSummaryProvider="true" />
 
         <EditTextPreference
-            app:key="influx_retention"
-            app:summary="@string/influx_retention_summary"
-            app:title="@string/influx_retention_title"
-            app:useSimpleSummaryProvider="true" />
-
-        <EditTextPreference
             app:defaultValue="fluxdroid_event"
             app:key="influx_measurement"
             app:summary="@string/influx_measurement_summary"
