@@ -12,6 +12,7 @@ public final class InfluxConfig {
     private final String retentionPolicy;
     private final String database;
     private final String measurement;
+    private final String deviceId;
 
     public InfluxConfig(String host,
                         int port,
@@ -19,7 +20,8 @@ public final class InfluxConfig {
                         InfluxAuth influxAuth,
                         @Nullable String retentionPolicy,
                         String database,
-                        String measurement) {
+                        String measurement,
+                        @Nullable String deviceId) {
         this.host = host;
         this.port = port;
         this.useTLS = useTLS;
@@ -27,6 +29,7 @@ public final class InfluxConfig {
         this.retentionPolicy = retentionPolicy;
         this.database = database;
         this.measurement = measurement;
+        this.deviceId = deviceId;
     }
 
     public String getHost() {
@@ -55,5 +58,9 @@ public final class InfluxConfig {
 
     public String getMeasurement() {
         return measurement;
+    }
+
+    public Optional<String> getDeviceId() {
+        return Optional.ofNullable(deviceId);
     }
 }

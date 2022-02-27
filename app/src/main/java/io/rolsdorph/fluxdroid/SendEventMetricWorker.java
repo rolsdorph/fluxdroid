@@ -150,9 +150,24 @@ public class SendEventMetricWorker extends Worker {
     private static String toLineProtocol(EventType eventType,
                                          Instant timestamp,
                                          InfluxConfig influxConfig) {
-        return influxConfig.getMeasurement()                // Measurement
-                + ",event=" + eventType.getConfigKey()      // Tags
-                + " source=\"" + EVENT_SOURCE + "\""        // Fields
-                + " " + timestamp.toEpochMilli();           // Timestamp
+        StringBuilder sb = new StringBuilder();
+
+        // Measurement
+        sb.append(influxConfig.getMeasurement());
+        // Tags
+        sb.append(",event=").append(eventType.getConfigKey());
+        influxConfig.getDeviceId().ifPresent(id -> sb.append(",device_id=").append(escapeSpaces(id)));
+        // Fields
+        sb.append(" ");
+        sb.append("source=\"" + EVENT_SOURCE + "\""); // Every point must have at least one field
+        // Timestamp
+        sb.append(" ");
+        sb.append(timestamp.toEpochMilli());
+
+        return sb.toString();
+    }
+
+    private static String escapeSpaces(String original) {
+        return original.replace(" ", "\\ ");
     }
 }

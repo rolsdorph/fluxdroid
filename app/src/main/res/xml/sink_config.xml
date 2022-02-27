@@ -68,6 +68,11 @@
             app:summary="@string/influx_retention_summary"
             app:title="@string/influx_retention_title"
             app:useSimpleSummaryProvider="true" />
+        <EditTextPreference
+            app:key="influx_device_id"
+            app:summary="@string/influx_device_id_summary"
+            app:title="@string/influx_device_id_title"
+            app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
 
 </PreferenceScreen>

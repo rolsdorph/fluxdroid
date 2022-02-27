@@ -69,10 +69,11 @@ public final class SinkConfigRepository {
         boolean useTLS = sharedPreferences.getBoolean("influx_tls", true);
         String retention = getNonEmptyConfig("influx_retention");
         String measurement = getNonEmptyConfig("influx_measurement");
+        String deviceId = getNonEmptyConfig("influx_device_id");
 
         if (host != null && port != null && db != null && measurement != null) {
             Log.i(TAG, "Influx fully configured!");
-            return Optional.of(new InfluxConfig(host, port, useTLS, influxAuth, retention, db, measurement));
+            return Optional.of(new InfluxConfig(host, port, useTLS, influxAuth, retention, db, measurement, deviceId));
         } else {
             Log.i(TAG, "Influx not fully configured. Missing fields: " +
                     ((host == null) ? "host, " : "")

@@ -64,9 +64,12 @@
     <string name="influx_token_summary">InfluxDB API token</string>
 
     <string name="influxdb_configuration_optional">Optional InfluxDB Configuration</string>
+
     <string name="influx_retention_title">Retention Policy</string>
     <string name="influx_retention_summary">Retention policy name</string>
 
+    <string name="influx_device_id_title">Device ID</string>
+    <string name="influx_device_id_summary">If set, this will be added as a device_id tag to all events</string>
 
     <!-- Image accessibility -->
     <string name="desc_stonks">Chart going up</string>
