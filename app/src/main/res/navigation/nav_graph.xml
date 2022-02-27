@@ -23,5 +23,5 @@
     <fragment
         android:id="@+id/eventSelectionFragment"
         android:name="io.rolsdorph.fluxdroid.EventSelectionFragment"
-        android:label="EventSelectionFragment" />
+        android:label="@string/select_events" />
 </navigation>
