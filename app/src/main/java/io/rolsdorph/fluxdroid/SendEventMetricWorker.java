@@ -121,14 +121,15 @@ public class SendEventMetricWorker extends Worker {
     }
 
     private static HttpUrl writeUrlFor(InfluxConfig config) {
-        return new HttpUrl.Builder()
+        HttpUrl.Builder builder = new HttpUrl.Builder()
                 .scheme(config.useTLS() ? "https" : "http")
                 .host(config.getHost())
                 .port(config.getPort())
                 .addPathSegment("write")
                 .addQueryParameter("db", config.getDatabase())
-                .addQueryParameter("precision", "ms")
-                .build();
+                .addQueryParameter("precision", "ms");
+        config.getRetentionPolicy().ifPresent(rp -> builder.addQueryParameter("rp", rp));
+        return builder.build();
     }
 
     private static Request writeRequest(EventType eventType,

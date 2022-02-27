@@ -1,10 +1,15 @@
 package io.rolsdorph.fluxdroid.data.sink;
 
+import androidx.annotation.Nullable;
+
+import java.util.Optional;
+
 public final class InfluxConfig {
     private final String host;
     private final int port;
     private final boolean useTLS;
     private final InfluxAuth influxAuth;
+    private final String retentionPolicy;
     private final String database;
     private final String measurement;
 
@@ -12,22 +17,16 @@ public final class InfluxConfig {
                         int port,
                         boolean useTLS,
                         InfluxAuth influxAuth,
+                        @Nullable String retentionPolicy,
                         String database,
                         String measurement) {
         this.host = host;
         this.port = port;
         this.useTLS = useTLS;
         this.influxAuth = influxAuth;
+        this.retentionPolicy = retentionPolicy;
         this.database = database;
         this.measurement = measurement;
-    }
-
-    public static InfluxConfig v1(String host, int port, boolean useTLS, String username, String password, String database, String measurement) {
-        return new InfluxConfig(host, port, useTLS, new InfluxAuth.UsernamePassword(username, password), database, measurement);
-    }
-
-    public static InfluxConfig v2(String host, int port, boolean useTLS, String token, String database, String measurement) {
-        return new InfluxConfig(host, port, useTLS, new InfluxAuth.Token(token), database, measurement);
     }
 
     public String getHost() {
@@ -44,6 +43,10 @@ public final class InfluxConfig {
 
     public InfluxAuth getInfluxAuth() {
         return influxAuth;
+    }
+
+    public Optional<String> getRetentionPolicy() {
+        return Optional.ofNullable(retentionPolicy);
     }
 
     public String getDatabase() {

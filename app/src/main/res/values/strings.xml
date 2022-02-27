@@ -35,7 +35,7 @@
 
     <!-- InfluxDB configuration -->
     <string name="configure_destination">Configure Destination</string>
-    <string name="influxdb_configuration">InfluxDB Configuration</string>
+    <string name="influxdb_configuration_required">Required InfluxDB Configuration</string>
     <string name="pw_not_set">Not set</string>
     <string name="pw_censored">******</string>
 
@@ -62,6 +62,11 @@
 
     <string name="influx_token_title">Token</string>
     <string name="influx_token_summary">InfluxDB API token</string>
+
+    <string name="influxdb_configuration_optional">Optional InfluxDB Configuration</string>
+    <string name="influx_retention_title">Retention Policy</string>
+    <string name="influx_retention_summary">Retention policy name</string>
+
 
     <!-- Image accessibility -->
     <string name="desc_stonks">Chart going up</string>
