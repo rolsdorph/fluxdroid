@@ -8,6 +8,14 @@ The events are received using the [Broadcasts](https://developer.android.com/gui
 Only the event names are currently sent to Influx, so the permission set (which includes reading all SMS/call data) is quite overkill.
 It would be cool to either restrict our permissions somehow, or to start sending more metadata to Influx.
 
+## Screenshots
+
+<div>
+<img src="docs/overview.jpg" width="300"/>
+<img src="docs/eventselection.jpg" width="300"/>
+<img src="docs/sinkconfig.jpg" width="300"/>
+ </div>
+
 ## Future development ideas
 
  - Adding support for more events (broadcast-based ones should be very straight forward). The Bluetooth ones, for example, could be cool!
