@@ -73,8 +73,6 @@ public class SinkConfigFragment extends PreferenceFragmentCompat {
             clearAndHidePreference(influxUsername);
             clearAndHidePreference(influxPassword);
             influxToken.setVisible(true);
-        } else {
-            Log.e(TAG, "Unexpected influx version: " + influxVersion);
         }
     }
 

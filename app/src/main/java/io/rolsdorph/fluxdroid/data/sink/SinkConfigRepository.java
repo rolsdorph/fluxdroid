@@ -30,7 +30,6 @@ public final class SinkConfigRepository {
                     EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
             );
         } catch (GeneralSecurityException | IOException e) {
-            Log.e(TAG, "Failed to create encryption key alias", e);
             throw new IllegalStateException("Failed to set up encrypted preferences");
         }
     }
@@ -50,7 +49,6 @@ public final class SinkConfigRepository {
 
     private Optional<InfluxAuth> buildInfluxAuth() {
         String influxVersion = sharedPreferences.getString("influx_version", null);
-        Log.i(TAG, "Influx version: " + influxVersion);
         if (influxVersion == null) {
             return Optional.empty();
         } else if (influxVersion.equals("influx1")) {
@@ -72,13 +70,8 @@ public final class SinkConfigRepository {
         String deviceId = getNonEmptyConfig("influx_device_id");
 
         if (host != null && port != null && db != null && measurement != null) {
-            Log.i(TAG, "Influx fully configured!");
             return Optional.of(new InfluxConfig(host, port, useTLS, influxAuth, retention, db, measurement, deviceId));
         } else {
-            Log.i(TAG, "Influx not fully configured. Missing fields: " +
-                    ((host == null) ? "host, " : "")
-                    + ((port == null) ? "port, " : "")
-                    + ((db == null) ? "db, " : ""));
             return Optional.empty();
         }
     }
@@ -86,10 +79,8 @@ public final class SinkConfigRepository {
     private String getNonEmptyConfig(String key) {
         String value = sharedPreferences.getString(key, null);
         if (value == null) {
-            Log.i(TAG, "Missing config value for " + key);
             return null;
         } else if (value.isEmpty()) {
-            Log.i(TAG, "Empty config value for " + key);
             return null;
         } else {
             return value;
@@ -104,7 +95,6 @@ public final class SinkConfigRepository {
             try {
                 return Integer.valueOf(portString);
             } catch (NumberFormatException ex) {
-                Log.e(TAG, "Failed to parse port number: " + portString);
                 return null;
             }
         }
@@ -114,10 +104,8 @@ public final class SinkConfigRepository {
         String username = sharedPreferences.getString("influx_username", null);
         String password = sharedPreferences.getString("influx_password", null);
         if (username != null && password != null) {
-            Log.i(TAG, "Influx 1 auth fully configured");
             return Optional.of(new InfluxAuth.UsernamePassword(username, password));
         } else {
-            Log.i(TAG, "Influx 1 auth not fully configured.");
             return Optional.empty();
         }
     }
@@ -125,10 +113,8 @@ public final class SinkConfigRepository {
     private Optional<InfluxAuth> buildInflux2Auth() {
         String token = sharedPreferences.getString("influx_token", null);
         if (token != null) {
-            Log.i(TAG, "Influx 2 auth fully configured");
             return Optional.of(new InfluxAuth.Token(token));
         } else {
-            Log.i(TAG, "Influx 2 auth not fully configured.");
             return Optional.empty();
         }
     }

@@ -13,7 +13,6 @@ public enum InfluxVersion {
         } else if (s.equals("influx2")) {
             return Influx2X;
         } else {
-            Log.e("InfluxVersion", "Unknown Influx version: " + s);
             return Unknown;
         }
     }

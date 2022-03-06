@@ -26,13 +26,9 @@ public class SystemEventReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         String eventName = intent.getAction();
-        if (eventName == null) {
-            Log.e(TAG, "Missing event name");
-        } else {
+        if (eventName != null) {
             EventType eventType = EventType.forSystemEvent(eventName);
-            if (eventType == null) {
-                Log.e(TAG, "Unexpected event: " + eventName);
-            } else {
+            if (eventType != null) {
                 sendEvent(context, eventType);
             }
         }
@@ -42,7 +38,6 @@ public class SystemEventReceiver extends BroadcastReceiver {
         boolean eventIsSelected = new EventSelectionRepository(context).isSelected(eventType);
 
         if (eventIsSelected) {
-            Log.d(TAG, "Sending event: " + eventType);
             WorkRequest workRequest = new OneTimeWorkRequest.Builder(SendEventMetricWorker.class)
                     .setConstraints(new Constraints.Builder()
                             .setRequiredNetworkType(NetworkType.CONNECTED)
@@ -57,8 +52,6 @@ public class SystemEventReceiver extends BroadcastReceiver {
                     .build();
 
             WorkManager.getInstance(context).enqueue(workRequest);
-        } else {
-            Log.d(TAG, "Skipping unselected event: " + eventType);
         }
     }
 }

@@ -34,9 +34,7 @@ public class EventToggleFragment extends PreferenceFragmentCompat {
                 (List<EventSelectionViewModel.Event> events) -> {
                     for (EventSelectionViewModel.Event event : events) {
                         SwitchPreferenceCompat preference = findPreference(event.getEventType().getConfigKey());
-                        if (preference == null) {
-                            Log.e(TAG, "Missing preference view for " + event);
-                        } else {
+                        if (preference != null) {
                             if (event.isMissingPermission()) {
                                 preference.setChecked(false);
                                 preference.setEnabled(false);

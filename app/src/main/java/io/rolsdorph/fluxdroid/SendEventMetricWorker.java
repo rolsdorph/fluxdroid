@@ -54,7 +54,6 @@ public class SendEventMetricWorker extends Worker {
         try {
             parsedInput = parseInputData(getInputData());
         } catch (IllegalArgumentException ex) {
-            Log.e(TAG, "Failed to parse input data", ex);
             return Result.failure();
         }
 
@@ -76,18 +75,15 @@ public class SendEventMetricWorker extends Worker {
                     resultType = ResultType.Success;
                 } else {
                     // TODO: consider parsing the headers (x-influxdb-error) or response body here
-                    Log.e(TAG, "Failed to post metric, unexpected response code: " + response.code());
                     resultType = ResultType.UnexpectedResponseCode;
                 }
             } catch (IOException e) {
-                Log.e(TAG, "Failed to post metric: ", e);
                 resultType = ResultType.UnknownError;
             }
 
             storeWriteEvent(eventType, resultType, statusCode).blockingAwait();
             return resultType.isSuccess() ? Result.success() : Result.failure();
         } else {
-            Log.i(TAG, "Skipping metric " + eventType + " due to missing/incomplete Influx config");
             return Result.success();
         }
     }
@@ -106,7 +102,6 @@ public class SendEventMetricWorker extends Worker {
         try {
             timestamp = Instant.ofEpochMilli(data.getLong(DATA_TIMESTAMP, -1));
         } catch (DateTimeException exception) {
-            Log.e(TAG, "Invalid timestamp, defaulting to now");
             timestamp = Instant.now();
         }
 
