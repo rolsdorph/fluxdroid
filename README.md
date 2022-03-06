@@ -10,11 +10,7 @@ It would be cool to either restrict our permissions somehow, or to start sending
 
 ## Screenshots
 
-<div>
-<img src="docs/overview.jpg" width="300"/>
-<img src="docs/eventselection.jpg" width="300"/>
-<img src="docs/sinkconfig.jpg" width="300"/>
- </div>
+<img src="docs/screens.jpg" />
 
 ## Future development ideas
 
